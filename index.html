@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>康复医学资讯聚合平台 - 黄犇</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0071e3;
+            --dark-bg: #0a0c17;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --card-hover: rgba(255, 255, 255, 0.12);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: rgba(255, 255, 255, 0.92);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --neural: #5e5ce6;
+            --orthopedic: #ff9f0a;
+            --sport: #ff375f;
+            --cardiac: #bf5af2;
+            --respiratory: #66d4cf;
+            --pediatric: #32d74b;
+            --rehab-tech: #00d4ff;
+            --gradient: linear-gradient(135deg, #090e23 0%, #1a1f3c 60%, #2a1f34 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 科技感背景 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            z-index: -3;
+        }
+        
+        /* 头部区域 */
+        .header {
+            background: rgba(10, 12, 23, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .admin-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 180, 255, 0.6);
+        }
+        
+        .admin-info h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #5e5ce6, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+        
+        .admin-info .tagline {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 40px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            background: rgba(20, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+            background: rgba(10, 15, 35, 0.9);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* 主容器 */
+        .container {
+            width: 90%;
+            max-width: 1500px;
+            margin: 50px auto;
+            padding-bottom: 80px;
+        }
+        
+        .platform-info {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 10%;
+        }
+        
+        .platform-info h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #5e5ce6, #66d4cf, #ff9f0a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        
+        .platform-info p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            min-width: 180px;
+            padding: 20px 25px;
+            background: rgba(30, 35, 60, 0.4);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #66d4cf, #5e5ce6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin: 60px 0 40px;
+            position: relative;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            height: 4px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 2px;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .article-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-card:hover {
+            background: var(--card-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .article-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--neural), var(--orthopedic), var(--sport));
+            z-index: 1;
+        }
+        
+        .article-category {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            gap: 8px;
+        }
+        
+        .neural { background: var(--neural); }
+        .orthopedic { background: var(--orthopedic); }
+        .sport { background: var(--sport); }
+        .cardiac { background: var(--cardiac); }
+        .respiratory { background: var(--respiratory); }
+        .pediatric { background: var(--pediatric); }
+        .rehab-tech { background: var(--rehab-tech); }
+        
+        .article-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .article-translation {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 22px;
+            line-height: 1.6;
+            background: rgba(20, 23, 42, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .article-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .source-logo {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+        }
+        
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64d2ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.2s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(100, 210, 255, 0.1);
+        }
+        
+        .article-link:hover {
+            background: rgba(100, 210, 255, 0.2);
+            color: #a6e7ff;
+        }
+        
+        .date-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .news-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-item:hover {
+            background: var(--card-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .news-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), #ff9f0a);
+        }
+        
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .news-content {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .news-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .update-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: rgba(0, 180, 255, 0.12);
+            border-radius: 50px;
+            color: #66d4ff;
+            font-size: 1.05rem;
+            margin: 50px 0;
+            border: 1px solid rgba(100, 210, 255, 0.2);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .article-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .news-feed {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .header {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .admin-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .search-container {
+                margin: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .platform-info {
+                padding: 0 5%;
+            }
+            
+            .stats-container {
+                gap: 20px;
+            }
+            
+            .stat-card {
+                min-width: 160px;
+                padding: 15px 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                min-width: 130px;
+                padding: 12px 16px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="admin-profile">
+            <img src="https://kobeben-1364006343.cos.ap-nanjing.myqcloud.com/me.jpg" alt="黄犇" class="admin-avatar">
+            <div class="admin-info">
+                <h1>黄犇</h1>
+                <div class="tagline">康复医学研究平台</div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="搜索康复医学相关文献、新闻...">
+            </div>
+        </div>
+    </header>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <div class="platform-info">
+            <h2>康复医学资讯聚合平台</h2>
+            <p>汇聚全球最新的康复医学与物理治疗学研究论文、行业动态及临床指南，精准分类提供神经康复、骨科康复、运动康复、心肺康复、儿童康复等领域的最新科研成果</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value">8,420+</div>
+                    <div class="stat-label">学术文献</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1,560+</div>
+                    <div class="stat-label">临床研究</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">240+</div>
+                    <div class="stat-label">专业期刊</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">每日更新</div>
+                    <div class="stat-label">最新成果</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 论文资源区域 -->
+        <h2 class="section-title"><i class="fas fa-book-medical"></i>最新研究论文</h2>
+        <div class="article-grid">
+            <!-- 神经康复 -->
+            <div class="article-card">
+                <span class="article-category neural"><i class="fas fa-brain"></i> 神经康复</span>
+                <h3 class="article-title">Virtual Reality-Assisted Rehabilitation for Post-Stroke Motor Recovery: A Randomized Controlled Trial</h3>
+                <p class="article-translation">虚拟现实辅助康复治疗脑卒中后运动功能恢复的随机对照试验</p>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/example-article" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/PubMed_Logo.svg" class="source-logo">PubMed
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-28</div>
+                </div>
+            </div>
+            
+            <!-- 骨科康复 -->
+            <div class="article-card">
+                <span class="article-category orthopedic"><i class="fas fa-bone"></i> 骨科康复</span>
+                <h3 class="article-title">Early Mobilization Protocols After Total Knee Replacement: Outcomes and Cost-Benefit Analysis</h3>
+                <p class="article-translation">全膝关节置换术后早期活动方案的临床结果与成本效益分析</p>
+                <a href="https://www.sciencedirect.com/science/article/example" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://cdn.iconscout.com/icon/free/png-256/google-scholar-2-569463.png" class="source-logo">Google Scholar
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-26</div>
+                </div>
+            </div>
+            
+            <!-- 心肺康复 -->
+            <div class="article-card">
+                <span class="article-category cardiac"><i class="fas fa-heartbeat"></i> 心肺康复</span>
+                <h3 class="article-title">High-Intensity Interval Training vs Moderate Exercise in Cardiac Patients</h3>
+                <p class="article-translation">高强度间歇训练与传统中等强度训练在心脏康复患者中的比较研究</p>
+                <a href="https://xueshu.baidu.com/usercenter/paper/example" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://xueshu.baidu.com/favicon.ico" class="source-logo">百度学术
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-24</div>
+                </div>
+            </div>
+            
+            <!-- 运动康复 -->
+            <div class="article-card">
+                <span class="article-category sport"><i class="fas fa-running"></i> 运动康复</span>
+                <h3 class="article-title">Biomechanical Analysis of ACL Rehabilitation Protocols in Professional Athletes</h3>
+                <p class="article-translation">职业运动员前交叉韧带康复方案的生物力学分析</p>
+                <a href="https://www.cnki.net/KCMS/detail/detail.aspx?dbcode=example" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://s3.amazonaws.com/wmh.s3.prd.jv-core/images/publisher-logo.png" class="source-logo">中国知网
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-22</div>
+                </div>
+            </div>
+            
+            <!-- 儿童康复 -->
+            <div class="article-card">
+                <span class="article-category pediatric"><i class="fas fa-child"></i> 儿童康复</span>
+                <h3 class="article-title">Robot-Assisted Therapy in Pediatric Cerebral Palsy: A Meta-Analysis</h3>
+                <p class="article-translation">机器人辅助治疗在小儿脑瘫康复中的疗效：Meta分析</p>
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/example" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/PubMed_Logo.svg" class="source-logo">PubMed
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-20</div>
+                </div>
+            </div>
+            
+            <!-- 呼吸康复 -->
+            <div class="article-card">
+                <span class="article-category respiratory"><i class="fas fa-lungs"></i> 呼吸康复</span>
+                <h3 class="article-title">Pulmonary Rehabilitation in Post-COVID Patients: Long-Term Efficacy Study</h3>
+                <p class="article-translation">新冠后遗症患者呼吸康复治疗长期疗效研究</p>
+                <a href="https://scholar.google.com/scholar?q=example" target="_blank" class="article-link">
+                    <i class="fas fa-external-link-alt"></i>访问全文
+                </a>
+                <div class="article-meta">
+                    <div class="article-source">
+                        <img src="https://cdn.iconscout.com/icon/free/png-256/google-scholar-2-569463.png" class="source-logo">Google Scholar
+                    </div>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-18</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 更新状态 -->
+        <div class="update-status">
+            <i class="fas fa-sync fa-spin"></i> 
+            <span>最后更新: 2023年10月29日 15:42:36 • 数据每日凌晨4点自动更新</span>
+        </div>
+        
+        <!-- 新闻资讯区域 -->
+        <h2 class="section-title"><i class="fas fa-newspaper"></i>最新行业动态</h2>
+        <div class="news-feed">
+            <div class="news-item">
+                <h3 class="news-title">全球首个智能康复机器人国际标准正式发布</h3>
+                <p class="news-content">10月27日，在日内瓦召开的国际标准化组织（ISO）大会上，由中国主导制定的智能康复机器人国际标准正式发布。该标准涵盖了神经康复、运动康复和辅助机器人的关键技术指标。</p>
+                <div class="news-footer">
+                    <a href="https://www.reuters.com/rehab-robotics" target="_blank" class="article-link">
+                        <i class="fas fa-external-link-alt"></i>阅读全文
+                    </a>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-27</div>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <h3 class="news-title">2023世界物理治疗大会公布突破性进展</h3>
+                <p class="news-content">10月25日在多伦多举行的世界物理治疗大会上，研究人员公布了基于脑机接口的神经康复系统，该系统在脑卒中患者康复中表现出显著效果。该技术目前已进入多中心临床试验阶段。</p>
+                <div class="news-footer">
+                    <a href="https://www.medicalnewstoday.com/rehab-tech" target="_blank" class="article-link">
+                        <i class="fas fa-external-link-alt"></i>阅读全文
+                    </a>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-25</div>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <h3 class="news-title">国家卫健委发布《骨科康复临床路径规范（2023版）》</h3>
+                <p class="news-content">国家卫生健康委于10月23日正式发布《骨科康复临床路径规范（2023版）》，涵盖13种骨科常见疾病的康复流程。该规范强调了早期干预和多学科协作在骨科康复中的重要性。</p>
+                <div class="news-footer">
+                    <a href="https://www.carm.org.cn/news/2023" target="_blank" class="article-link">
+                        <i class="fas fa-external-link-alt"></i>阅读全文
+                    </a>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-23</div>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <h3 class="news-title">AI技术在康复医学领域取得重大突破</h3>
+                <p class="news-content">DeepRehab团队开发的AI康复评估系统在临床应用中表现出色。该系统利用计算机视觉和深度学习技术，可以在15秒内完成传统需要30分钟的康复评估工作，准确率达95.7%。</p>
+                <div class="news-footer">
+                    <a href="https://www.nature.com/rehab-ai" target="_blank" class="article-link">
+                        <i class="fas fa-external-link-alt"></i>阅读全文
+                    </a>
+                    <div class="date-info"><i class="far fa-calendar-alt"></i> 2023-10-21</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 更新时间显示
+        function updateDateTime() {
+            const now = new Date();
+            const dateOptions = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            
+            const formattedDate = now.toLocaleDateString('zh-CN', dateOptions);
+            document.querySelector('.update-status span').innerHTML = 
+                `最后更新: ${formattedDate} • 数据每日凌晨4点自动更新`;
+        }
+        
+        // 初始化页面
+        window.onload = function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // 添加悬浮效果
+            const cards = document.querySelectorAll('.article-card, .news-item');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        };
+    </script>
+</body>
+</html>
