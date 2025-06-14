@@ -8,12 +8,12 @@
     <style>
         :root {
             --primary-color: #0071e3;
-            --dark-bg: #0a0c17;
-            --card-bg: rgba(255, 255, 255, 0.06);
-            --card-hover: rgba(255, 255, 255, 0.12);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --text-primary: rgba(255, 255, 255, 0.92);
-            --text-secondary: rgba(255, 255, 255, 0.7);
+            --light-bg: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-hover: rgba(255, 255, 255, 1);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-primary: rgba(33, 37, 41, 0.9);
+            --text-secondary: rgba(108, 117, 125, 0.8);
             --neural: #5e5ce6;
             --orthopedic: #ff9f0a;
             --sport: #ff375f;
@@ -21,7 +21,7 @@
             --respiratory: #66d4cf;
             --pediatric: #32d74b;
             --rehab-tech: #00d4ff;
-            --gradient: linear-gradient(135deg, #090e23 0%, #1a1f3c 60%, #2a1f34 100%);
+            --gradient: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 60%, #fff3e0 100%);
         }
         
         * {
@@ -32,7 +32,7 @@
         }
         
         body {
-            background: var(--dark-bg);
+            background: var(--light-bg);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
@@ -53,9 +53,9 @@
         
         /* 头部区域 */
         .header {
-            background: rgba(10, 12, 23, 0.85);
+            background: rgba(248, 249, 250, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -63,6 +63,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .admin-profile {
@@ -76,14 +77,14 @@
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 25px rgba(0, 150, 255, 0.4);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 25px rgba(0, 113, 227, 0.3);
             transition: all 0.3s ease;
         }
         
         .admin-avatar:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 180, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 113, 227, 0.5);
         }
         
         .admin-info h1 {
@@ -115,8 +116,8 @@
         .search-input {
             width: 100%;
             padding: 14px 20px 14px 48px;
-            background: rgba(20, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.15);
             border-radius: 14px;
             color: var(--text-primary);
             font-size: 1rem;
@@ -127,7 +128,7 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
-            background: rgba(10, 15, 35, 0.9);
+            background: rgba(255, 255, 255, 1);
         }
         
         .search-icon {
@@ -135,7 +136,7 @@
             left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(0, 0, 0, 0.6);
         }
         
         /* 主容器 */
@@ -181,10 +182,11 @@
         .stat-card {
             min-width: 180px;
             padding: 20px 25px;
-            background: rgba(30, 35, 60, 0.4);
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
         
         .stat-value {
@@ -248,7 +250,7 @@
         .article-card:hover {
             background: var(--card-hover);
             transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
         
         .article-card::before {
@@ -294,7 +296,7 @@
             color: var(--text-secondary);
             margin-bottom: 22px;
             line-height: 1.6;
-            background: rgba(20, 23, 42, 0.4);
+            background: rgba(248, 249, 250, 0.8);
             padding: 15px;
             border-radius: 12px;
             border-left: 3px solid var(--primary-color);
@@ -308,7 +310,7 @@
             font-size: 0.9rem;
             margin-top: 10px;
             padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
         
         .article-source {
@@ -373,7 +375,7 @@
         .news-item:hover {
             background: var(--card-hover);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .news-item::before {
@@ -406,7 +408,7 @@
             align-items: center;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
         
         .update-status {
@@ -687,6 +689,206 @@
     </div>
     
     <script>
+        // API基础URL
+        const API_BASE_URL = '/api';
+        
+        // 获取文章数据
+        async function fetchArticles() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/articles?per_page=20`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderArticles(data.data);
+                } else {
+                    console.error('获取文章失败:', data.error);
+                }
+            } catch (error) {
+                console.error('获取文章时出错:', error);
+            }
+        }
+        
+        // 获取新闻数据
+        async function fetchNews() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/news?per_page=10`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderNews(data.data);
+                } else {
+                    console.error('获取新闻失败:', data.error);
+                }
+            } catch (error) {
+                console.error('获取新闻时出错:', error);
+            }
+        }
+        
+        // 获取统计数据
+        async function fetchStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stats`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateStats(data.data);
+                } else {
+                    console.error('获取统计数据失败:', data.error);
+                }
+            } catch (error) {
+                console.error('获取统计数据时出错:', error);
+            }
+        }
+        
+        // 渲染文章列表
+        function renderArticles(articles) {
+            const articleGrid = document.querySelector('.article-grid');
+            if (!articleGrid) return;
+            
+            articleGrid.innerHTML = '';
+            
+            articles.forEach(article => {
+                const categoryClass = getCategoryClass(article.category);
+                const categoryIcon = getCategoryIcon(article.category);
+                const publishedDate = new Date(article.published_date).toLocaleDateString('zh-CN');
+                
+                const articleCard = document.createElement('div');
+                articleCard.className = 'article-card';
+                articleCard.innerHTML = `
+                    <span class="article-category ${categoryClass}">
+                        <i class="${categoryIcon}"></i> ${article.category}
+                    </span>
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-translation">${article.title_zh}</p>
+                    <div class="article-meta">
+                        <div class="article-source">
+                            <img src="${getSourceLogo(article.source)}" alt="${article.source}" class="source-logo">
+                            <span>${article.source}</span>
+                        </div>
+                        <div class="date-info">
+                            <i class="far fa-calendar-alt"></i> ${publishedDate}
+                        </div>
+                    </div>
+                    <a href="${article.url}" target="_blank" class="article-link">
+                        <i class="fas fa-external-link-alt"></i>访问全文
+                    </a>
+                `;
+                
+                articleGrid.appendChild(articleCard);
+            });
+        }
+        
+        // 渲染新闻列表
+        function renderNews(newsList) {
+            const newsFeed = document.querySelector('.news-feed');
+            if (!newsFeed) return;
+            
+            newsFeed.innerHTML = '';
+            
+            newsList.forEach(news => {
+                const publishedDate = new Date(news.published_date).toLocaleDateString('zh-CN');
+                
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <h3 class="news-title">${news.title}</h3>
+                    <p class="news-content">${news.content}</p>
+                    <div class="news-footer">
+                        <a href="${news.url}" target="_blank" class="article-link">
+                            <i class="fas fa-external-link-alt"></i>阅读全文
+                        </a>
+                        <div class="date-info">
+                            <i class="far fa-calendar-alt"></i> ${publishedDate}
+                        </div>
+                    </div>
+                `;
+                
+                newsFeed.appendChild(newsItem);
+            });
+        }
+        
+        // 更新统计数据
+        function updateStats(stats) {
+            const statCards = document.querySelectorAll('.stat-card');
+            if (statCards.length >= 4) {
+                statCards[0].querySelector('.stat-value').textContent = `${stats.total_articles}+`;
+                statCards[1].querySelector('.stat-value').textContent = `${Math.floor(stats.total_articles * 0.2)}+`;
+                statCards[2].querySelector('.stat-value').textContent = '240+';
+                statCards[3].querySelector('.stat-value').textContent = '每日更新';
+            }
+        }
+        
+        // 获取分类样式类
+        function getCategoryClass(category) {
+            const categoryMap = {
+                '神经康复': 'neural',
+                '骨科康复': 'orthopedic',
+                '运动康复': 'sport',
+                '心肺康复': 'cardiac',
+                '呼吸康复': 'respiratory',
+                '儿童康复': 'pediatric',
+                '康复技术': 'rehab-tech'
+            };
+            return categoryMap[category] || 'neural';
+        }
+        
+        // 获取分类图标
+        function getCategoryIcon(category) {
+            const iconMap = {
+                '神经康复': 'fas fa-brain',
+                '骨科康复': 'fas fa-bone',
+                '运动康复': 'fas fa-running',
+                '心肺康复': 'fas fa-heartbeat',
+                '呼吸康复': 'fas fa-lungs',
+                '儿童康复': 'fas fa-child',
+                '康复技术': 'fas fa-robot'
+            };
+            return iconMap[category] || 'fas fa-stethoscope';
+        }
+        
+        // 获取来源Logo
+        function getSourceLogo(source) {
+            const logoMap = {
+                'PubMed': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjNDA5NkZGIi8+Cjwvc3ZnPgo=',
+                'Google Scholar': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjNEY4NUY0Ii8+Cjwvc3ZnPgo=',
+                '百度学术': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjMzM4NUZGIi8+Cjwvc3ZnPgo=',
+                '中国知网': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjRkY1NzIyIi8+Cjwvc3ZnPgo='
+            };
+            return logoMap[source] || logoMap['PubMed'];
+        }
+        
+        // 搜索功能
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', async (e) => {
+                    if (e.key === 'Enter') {
+                        const query = e.target.value.trim();
+                        if (query) {
+                            await performSearch(query);
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 执行搜索
+        async function performSearch(query) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderArticles(data.data.articles);
+                    renderNews(data.data.news);
+                } else {
+                    console.error('搜索失败:', data.error);
+                }
+            } catch (error) {
+                console.error('搜索时出错:', error);
+            }
+        }
+        
         // 更新时间显示
         function updateDateTime() {
             const now = new Date();
@@ -701,14 +903,24 @@
             };
             
             const formattedDate = now.toLocaleDateString('zh-CN', dateOptions);
-            document.querySelector('.update-status span').innerHTML = 
-                `最后更新: ${formattedDate} • 数据每日凌晨4点自动更新`;
+            const updateStatus = document.querySelector('.update-status span');
+            if (updateStatus) {
+                updateStatus.innerHTML = `最后更新: ${formattedDate} • 数据每日凌晨4点自动更新`;
+            }
         }
         
         // 初始化页面
         window.onload = function() {
             updateDateTime();
             setInterval(updateDateTime, 1000);
+            
+            // 设置搜索功能
+            setupSearch();
+            
+            // 加载数据
+            fetchArticles();
+            fetchNews();
+            fetchStats();
             
             // 添加悬浮效果
             const cards = document.querySelectorAll('.article-card, .news-item');
